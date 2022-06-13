@@ -19,12 +19,14 @@ public class BookController {
     private BookService bookService;
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+
     @RequestMapping("/book/getBooks")
     public List<Book> getBooks() {
         List<Book> books = bookService.findAll();
         System.out.println(books);
         return books;
     }
+
 
     @RequestMapping("/book/getBook")
     public Book getBook(@RequestParam("id") Integer id) {
@@ -33,19 +35,23 @@ public class BookController {
         return book;
     }
 
+
     @RequestMapping("/book/delete")
     public Book deleteBook(@RequestParam("id") Integer id) {
         return bookService.deleteBook(id);
     }
 
+
     @RequestMapping("/book/addBook")
     public Book addBook(@RequestParam("ISBN") Integer ISBN, @RequestParam("name") String name,
                         @RequestParam("type") String type, @RequestParam("author") String author,
-                        @RequestParam("price") double price, @RequestParam("description") String description,
+                        @RequestParam("priceYuan") int priceYuan, @RequestParam("priceJiao") int priceJiao,
+                        @RequestParam("description") String description,
                         @RequestParam("inventory") Integer inventory, @RequestParam("inventory") String image)
     {
-        return bookService.addBook(ISBN, name, type, author, price, description, inventory, image);
+        return bookService.addBook(ISBN, name, type, author, priceYuan, priceJiao, description, inventory, image);
     }
+
 
     @RequestMapping("/book/changeAttribute")
     public Book changeAttribute(@RequestParam("id") Integer id, @RequestParam("attribute") String attribute, @RequestParam("newValue") String newValue){

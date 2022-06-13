@@ -65,6 +65,7 @@ public class User {
     public List<Order> getOrderList() { return orderList; }
     public void setOrderList(List<Order> orderList1) { this.orderList = orderList1; }
 
+    @Transient
     public double getConsumption() {return consumption; }
     public void setConsumption(double consumption1) { this.consumption = consumption1; }
 

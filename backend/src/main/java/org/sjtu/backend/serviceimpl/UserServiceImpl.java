@@ -83,10 +83,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User checkUser(String username, String password){
+        if(userDao.checkBan(username) != null)
+            return null;
         return userDao.checkUser(username, password);
     }
 
-    //在哪一步判断管理员啊？是个问题
+
     @Override
     public void deleteUser(String username){
         userDao.deleteByName(username);

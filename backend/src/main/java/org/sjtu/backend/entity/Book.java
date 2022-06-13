@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.swing.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties(value={"orderItemList", "cartItemList"})
@@ -21,7 +22,9 @@ public class Book {
     private String name;
     private String type;
     private String author;
-    private double price;
+//    private double price;
+    private int priceYuan;
+    private int priceJiao;
     private String descript;
     //inventory = -1：deleted
     private int inventory;
@@ -29,8 +32,6 @@ public class Book {
     private int sales;
     private List<OrderItem> orderItemList;
     private List<CartItem> cartItemList;
-//    @OneToOne(mappedBy = "orderitem", cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)
-//    private OrderItem orderItem;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -39,11 +40,8 @@ public class Book {
         return id;
     }
     public void setId(int i){ this.id = i; }
-//    @Basic
-//    @Column(name = "isbn", nullable = false)
-//    public int getIsbn() {
-//        return id;
-//    }
+
+
 
     @Basic
     @Column(name = "isbn")
@@ -65,10 +63,23 @@ public class Book {
     public String getAuthor(){ return author; }
     public void setAuthor(String auth) { this.author = auth; }
 
+//    @Basic
+//    @Column(name = "price", nullable = false)
+//    public double getPrice(){ return price; }
+//    public void setPrice(double pric) { this.price = pric; }
+
     @Basic
-    @Column(name = "price", nullable = false)
-    public double getPrice(){ return price; }
-    public void setPrice(double pric) { this.price = pric; }
+    @Column(name = "price_yuan", nullable = false)
+    public int getPriceYuan() { return priceYuan; }
+    public void setPriceYuan(int priceYuan1 ) { this.priceYuan = priceYuan1; }
+
+    @Basic
+    @Column(name = "price_jiao", nullable = false)
+    public int getPriceJiao() { return priceJiao; }
+
+    public void setPriceJiao(int priceJiao) {
+        this.priceJiao = priceJiao;
+    }
 
     @Basic
     @Column(name = "description")
@@ -99,5 +110,41 @@ public class Book {
     @OneToMany(mappedBy = "book",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     public List<CartItem> getCartItemList() { return cartItemList; }
     public void setCartItemList(List<CartItem> cartItems) { this.cartItemList = cartItems; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book that = (Book) o;
+
+        if (id != that.id) return false;
+        if (!Objects.equals(name, that.name)) return false;
+        if (!Objects.equals(isbn, that.isbn)) return false;
+        if (!Objects.equals(type, that.type)) return false;
+        if (!Objects.equals(author, that.author)) return false;
+        if (!Objects.equals(priceYuan, that.priceYuan)) return false;
+        if (!Objects.equals(priceJiao, that.priceJiao)) return false;
+        if (!Objects.equals(descript, that.descript)) return false;
+        if (!Objects.equals(inventory, that.inventory)) return false;
+        if (!Objects.equals(image, that.image)) return false;
+        if (!Objects.equals(sales, that.sales)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (author != null ? author.hashCode() : 0);
+        result = 31 * result + (descript != null ? descript.hashCode() : 0);
+        result = 31 * result + (image != null ? image.hashCode() : 0);
+        result += isbn;
+        result += priceJiao;
+        result += priceYuan;
+        return result;
+    }
 
 }

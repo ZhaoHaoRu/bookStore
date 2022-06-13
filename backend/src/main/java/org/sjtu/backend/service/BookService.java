@@ -18,7 +18,7 @@ public interface BookService {
 
     List<CartItem> updateAfterChange(Book oldBook, Book newBook);
 
-    Book addBook(int isbn, String name, String type, String author, double price, String description, int inventory, String image);
+    Book addBook(int isbn, String name, String type, String author, int priceYuan, int priceJiao, String description, int inventory, String image);
 
     Book changeName(int id, String newName);
 

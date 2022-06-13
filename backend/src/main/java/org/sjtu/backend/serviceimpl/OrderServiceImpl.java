@@ -206,11 +206,15 @@ public class OrderServiceImpl implements OrderService {
         }
         Set<User> customers = new HashSet<>();
         for(Order order : orders){
-            double pay = 0;
+            double pay;
+            int payYuan = 0;
+            int payJiao = 0;
             List<OrderItem> orderItems = orderDao.findByOrderId(order);
-            for(OrderItem orderItem : orderItems){
-                pay += orderItem.getCount() * orderItem.getBook().getPrice();
+            for(OrderItem orderItem : orderItems) {
+                payYuan += orderItem.getCount() * orderItem.getBook().getPriceYuan();
+                payJiao += orderItem.getCount() * orderItem.getBook().getPriceJiao();
             }
+            pay = payYuan + payJiao / 100.0;
             User buyer = order.getBuyer();
             if(!customers.isEmpty() && customers.contains(buyer)){
                 buyer.setConsumption(buyer.getConsumption() + pay);

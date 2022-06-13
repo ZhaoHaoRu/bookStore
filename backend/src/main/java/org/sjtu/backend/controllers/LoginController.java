@@ -11,10 +11,8 @@ import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import net.sf.json.util.CycleDetectionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +29,7 @@ public class LoginController {
      * @Param: username, password, remember
      * @return: Msg
      */
+
     @RequestMapping("/login")
     //public Msg login(@RequestParam(Constant.USERNAME) String username, @RequestParam(Constant.PASSWORD) String password, @RequestParam(Constant.REMEMBER_ME) Boolean remember){
     public Msg login(@RequestBody Map<String, String> params) {
@@ -71,6 +70,7 @@ public class LoginController {
      * @Param: null
      * @return: Msg
      */
+
     @RequestMapping("/checkSession")
     public Msg checkSession() {
         JSONObject auth = SessionUtil.getAuth();

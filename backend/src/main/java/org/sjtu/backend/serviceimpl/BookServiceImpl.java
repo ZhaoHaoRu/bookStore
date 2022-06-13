@@ -60,13 +60,14 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public Book addBook(int isbn, String name, String type, String author, double price, String description, int inventory, String image) {
+    public Book addBook(int isbn, String name, String type, String author, int priceYuan, int priceJiao, String description, int inventory, String image) {
         Book newBook = new Book();
         newBook.setName(name);
         newBook.setAuthor(author);
         newBook.setType(type);
         newBook.setDescript(description);
-        newBook.setPrice(price);
+        newBook.setPriceYuan(priceYuan);
+        newBook.setPriceJiao(priceJiao);
         newBook.setIsbn(isbn);
         newBook.setInventory(inventory);
         newBook.setImage(image);
@@ -80,15 +81,12 @@ public class BookServiceImpl implements BookService{
         newBook.setName(toChange.getName());
         newBook.setType(toChange.getType());
         newBook.setAuthor(toChange.getAuthor());
-        newBook.setPrice(toChange.getPrice());
+        newBook.setPriceYuan(toChange.getPriceYuan());
+        newBook.setPriceJiao(toChange.getPriceJiao());
         newBook.setDescript(toChange.getDescript());
         newBook.setInventory(toChange.getInventory());
         newBook.setImage(toChange.getImage());
         newBook.setSales(toChange.getSales());
-//        List<CartItem> newCartList = new ArrayList<>();
-//        CollectionUtils.addAll(newCartList, new Object[toChange.getCartItemList().size()]);
-//        Collections.copy(newCartList, toChange.getCartItemList());
-//        newBook.setCartItemList(newCartList);
         //这个操作相当于将原先的书删除
         toChange.setInventory(-1);
         return newBook;
