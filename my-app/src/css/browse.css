@@ -1,0 +1,60 @@
+.site-layout-content {
+    min-height: 600px;
+    padding: 24px;
+    background: #fff;
+}
+.logo {
+    float: left;
+    width: 120px;
+    height: 31px;
+    margin: 0 0 0 0;
+    /*background: rgba(255, 255, 255);*/
+}
+.ant-row-rtl .logo {
+    float: right;
+    margin: 16px 0 16px 24px;
+}
+[data-theme="dark"] .site-layout-content {
+    background: #141414;
+}
+
+.background_pic{
+    /*position: fixed;*/
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/bookstore_background.jpg");
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+    /*-webkit-background-size: cover;*/
+    /*-o-background-size: cover;*/
+}
+
+.header_heading{
+    font-size: 25px;
+    color: white;
+}
+
+.my_search_bar{
+    margin-left: 25%;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    width: 50%;
+    border-color: rgb(189, 54, 47);
+    color: rgb(189, 54, 47);
+}
+
+.search_input{
+    border-color: rgb(189, 54, 47) !important;
+    color: rgb(189, 54, 47) !important;
+    height: 40px !important;
+}
+
+.search_button{
+    color: rgb(189, 54, 47) !important;
+}
+

@@ -1,0 +1,11 @@
+.page-title{
+    font-size: 25px;
+    color:white;
+}
+
+.login-button{
+    background:rgb(189, 54, 47, 80%);
+    color:white;
+    border-radius: 5px;
+    border-color: rgb(189, 54, 47);
+}

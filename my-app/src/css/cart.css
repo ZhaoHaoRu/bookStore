@@ -1,0 +1,16 @@
+.buy-button{
+    background:rgb(189, 54, 47);
+    color:white;
+    border-radius: 5px;
+    border-color: rgb(189, 54, 47);
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+    height: 40px;
+    width: 100px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    line-height: 25px;
+    margin-bottom: 15px;
+
+}
