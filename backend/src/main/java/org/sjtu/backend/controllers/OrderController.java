@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +45,8 @@ public class OrderController {
                 List<OrderItem> orderItems = orderService.getOneOrder(order.getId());
                 result.add(orderItems);
             }
+//            Collections.reverse(result);
+//            Collections.sort(result, Collections.reverseOrder());
             return result;
         }
         else {

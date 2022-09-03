@@ -12,4 +12,6 @@ public interface BookDao {
 
     Book save(Book newBook);
 
+    List<Book> findByISBN(int ISBN);
+
 }

@@ -36,7 +36,7 @@ public class LoginController {
         String username = params.get(Constant.USERNAME);
         String password = params.get(Constant.PASSWORD);
         User auth = userService.checkUser(username, password);
-        if (auth != null) {
+        if (auth != null && auth.getIsBan() != 1) {
 
             JSONObject obj = new JSONObject();
             obj.put(Constant.USER_ID, auth.getId());
@@ -49,7 +49,9 @@ public class LoginController {
             JSONObject data = JSONObject.fromObject(auth, jsonConfig);
             data.remove(Constant.PASSWORD);
 
-            return MsgUtil.makeMsg(MsgCode.SUCCESS, MsgUtil.LOGIN_SUCCESS_MSG, data);
+            return MsgUtil.makeMsg(MsgUtil.SUCCESS, MsgUtil.LOGIN_SUCCESS_MSG, data);
+        } else if (auth != null) {
+            return MsgUtil.makeMsg(MsgUtil.LOGIN_BAN_ERROR, MsgUtil.LOGIN_BAN_MSG, null);
         } else {
             return MsgUtil.makeMsg(MsgCode.LOGIN_USER_ERROR);
         }

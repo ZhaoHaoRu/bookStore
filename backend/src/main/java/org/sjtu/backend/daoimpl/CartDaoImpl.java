@@ -9,6 +9,7 @@ import org.sjtu.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.sql.Timestamp;
 
@@ -16,11 +17,11 @@ import java.util.List;
 
 @Repository
 public class CartDaoImpl implements CartDao{
-    @Autowired
+    @Resource
     private CartRepository cartRepository;
-    @Autowired
+    @Resource
     private CartItemRepository cartItemRepository;
-    @Autowired
+    @Resource
     private BookRepository bookRepository;
 
     @Override

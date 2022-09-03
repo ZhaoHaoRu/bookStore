@@ -15,4 +15,6 @@ public interface CartService {
     Cart deleteToCart(int bookId, String username);
 
     List<CartItem> updateBookInCart(int oldId, int newId);
+
+    Cart changeBookCount(int bookId, String username, int count);
 }

@@ -6,11 +6,12 @@ import org.sjtu.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao{
-    @Autowired
+    @Resource
     private UserRepository userRepository;
 
     @Override
@@ -49,9 +50,9 @@ public class UserDaoImpl implements UserDao{
         if(user == null)
             return null;
         if(isBan)
-            user.setIsAdministrators(2);
+            user.setIsBan(1);
         else
-            user.setIsAdministrators(0);
+            user.setIsBan(0);
         User newUser = userRepository.save(user);
         return newUser;
     }
@@ -65,4 +66,7 @@ public class UserDaoImpl implements UserDao{
     public User save(User user){
         return userRepository.save(user);
     }
+
+    @Override
+    public List<User> findAllUser() { return userRepository.findAllByIsAdministrators(0); };
 }

@@ -5,11 +5,13 @@ import org.sjtu.backend.dao.BookDao;
 import org.sjtu.backend.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
 import java.util.List;
 
 @Repository
 public class BookDaoImpl implements BookDao{
-    @Autowired
+    @Resource
     private BookRepository bookRepository;
 
     @Override
@@ -32,4 +34,7 @@ public class BookDaoImpl implements BookDao{
     public Book save(Book newBook){
         return bookRepository.save(newBook);
     }
+
+    @Override
+    public List<Book> findByISBN(int ISBN) { return bookRepository.selectByISBN(ISBN); }
 }

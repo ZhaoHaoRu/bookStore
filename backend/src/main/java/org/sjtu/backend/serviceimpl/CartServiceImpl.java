@@ -12,15 +12,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 @Service
 public class CartServiceImpl implements CartService{
-    @Autowired
+    @Resource
     private UserDao userDao;
 
-    @Autowired
+    @Resource
     private CartDao cartDao;
 
-    @Autowired
+    @Resource
     private BookDao bookDao;
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -118,5 +120,31 @@ public class CartServiceImpl implements CartService{
         return cartItems;
     }
 
+    @Override
+    public Cart changeBookCount(int bookId, String username, int count) {
+        if(count < 0)
+            return null;
+        User user = userDao.findByName(username);
+        if(user == null)
+            return null;
+        Cart cart = cartDao.findByUser(user);
+        if(cart == null)
+            return null;
+        Book book = bookDao.findById(bookId);
+        CartItem cartItem = cartDao.findCartItem(book, cart);
+        if(cartItem != null){
+            cartItem.setCount(count);
+            if(cartItem.getCount() == 0){
+                return cartDao.deleteCartItem(book, cart);
+            }
+            Date newDate = new Date();
+            Timestamp t = new Timestamp(newDate.getTime());
+            cartItem.setAddDate(t);
+            cartDao.save(cartItem);
+        }
+        else
+            return null;
+        return cart;
+    }
 
 }

@@ -29,7 +29,7 @@ public class Cart {
 
     @Transient
     @JsonIgnore
-    @OneToMany(mappedBy = "cartId",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "cartId",cascade={CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.LAZY)
     public List<CartItem> getCartItemList() { return this.CartItemList; }
     public void setCartItemList(List<CartItem> CartItems) { this.CartItemList = CartItems; }
 

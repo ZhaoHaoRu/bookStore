@@ -34,7 +34,7 @@ public class OrderItem {
     public Order getOrderId() { return orderId; }
     public void setOrderId(Order order){ this.orderId = order; }
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade={CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "bookId")//people中的address_id字段参考address表中的id字段
     public Book getBook(){ return book; }
     public void setBook(Book b) { this.book = b; }

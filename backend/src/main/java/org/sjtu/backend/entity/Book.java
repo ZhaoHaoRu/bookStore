@@ -101,7 +101,7 @@ public class Book {
 
     @Transient
     @JsonIgnore
-    @OneToMany(mappedBy = "book",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "book",cascade={CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.LAZY)
     public List<OrderItem> getOrderItemList() { return orderItemList; }
     public void setOrderItemList(List<OrderItem> orderItemList1) { this.orderItemList = orderItemList1; }
 

@@ -7,6 +7,7 @@ import org.sjtu.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.sql.Timestamp;
 
@@ -14,9 +15,9 @@ import java.util.List;
 
 @Repository
 public class OrderDaoImpl implements OrderDao{
-    @Autowired
+    @Resource
     private OrderRepository orderRepository;
-    @Autowired
+    @Resource
     private OrderItemRepository orderItemRepository;
 
     @Override

@@ -7,12 +7,15 @@ import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.sjtu.backend.entity.User;
 
 @Entity
-@JsonIgnoreProperties(value={"orderItemList"})
+//@JsonIgnoreProperties(value={"orderItemList"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "ordertable", schema = "myBookstore")
 public class Order {
     private int id;
@@ -61,7 +64,6 @@ public class Order {
     public void setAddDate(Timestamp date) { this.addDate = date; }
 
     @Transient
-    @JsonIgnore
     @OneToMany(mappedBy = "orderId",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     public List<OrderItem> getOrderItemList() { return orderItemList; }
     public void setOrderItemList(List<OrderItem> orderItems) { this.orderItemList = orderItems; }

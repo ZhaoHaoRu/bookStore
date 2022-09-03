@@ -21,6 +21,9 @@ public interface BookRepository extends JpaRepository<Book,Integer>{
 
     List<Book> getByOrderBySales();
 
+    @Query(value = "from Book where isbn = :isbn and inventory >= -1")
+    List<Book> selectByISBN(int isbn);
+
     @Query(value = "from Book where inventory not in (-1)")
     List<Book> getBooks();
 }

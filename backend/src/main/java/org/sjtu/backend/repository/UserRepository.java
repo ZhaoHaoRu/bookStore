@@ -22,6 +22,8 @@ public interface UserRepository extends JpaRepository<User,Integer>{
     @Query(value = "from User where name = :username and isAdministrators = 1")
     User checkAdministrators(@Param("username") String username);
 
-    @Query(value = "from User where name = :username and isAdministrators = 2")
+    @Query(value = "from User where name = :username and isBan = 1")
     User checkBan(@Param("username") String username);
+
+    List<User> findAllByIsAdministrators(int isAdministrators);
 }

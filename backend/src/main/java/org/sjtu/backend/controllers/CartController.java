@@ -32,6 +32,12 @@ public class CartController {
         return cartService.deleteToCart(bookId, username);
     }
 
+    @RequestMapping("/cart/changeBookCount")
+    public Cart deleteToCart(@RequestParam("bookId") Integer bookId , @RequestParam("username") String username, @RequestParam("count") Integer count)
+    {
+        return cartService.changeBookCount(bookId, username, count);
+    }
+
     @RequestMapping("/cart/clearCart")
     public Cart clearCart(@RequestParam("username") String username) {
         return cartService.clearCart(username);

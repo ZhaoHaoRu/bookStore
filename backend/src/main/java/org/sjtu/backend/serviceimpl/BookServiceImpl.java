@@ -18,12 +18,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 @Service
 public class BookServiceImpl implements BookService{
-    @Autowired
+    @Resource
     private BookDao bookDao;
 
-    @Autowired
+    @Resource
     private CartService cartService;
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());

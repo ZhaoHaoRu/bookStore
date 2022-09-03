@@ -17,9 +17,11 @@ public class User {
     private String passward;
     private String email;
     private String phone;
-    private String address;
-    //0：普通用户 1：管理员 2：代表禁用用户
+//    private String address;
+    //0：普通用户 1：管理员
     private int isAdministrators = 0;
+    //0: 未被禁用 1：被禁用
+    private int isBan = 0;
     private double consumption = 0;
     private List<Order> orderList;
 
@@ -49,19 +51,24 @@ public class User {
     public String getEmail() { return email; }
     public void setEmail(String newEmail) { this.email = newEmail; }
 
-    @Basic
-    @Column(name = "address", nullable = false, length = 100)
-    public String getAddress() { return address; }
-    public void setAddress(String addr) { this.address = addr; }
+//    @Basic
+//    @Column(name = "address", nullable = false, length = 100)
+//    public String getAddress() { return address; }
+//    public void setAddress(String addr) { this.address = addr; }
 
     @Basic
     @Column(name = "isAdministrators", nullable = false)
     public int getIsAdministrators() { return isAdministrators; }
     public void setIsAdministrators(int isAdmin){ this.isAdministrators = isAdmin; }
 
+    @Basic
+    @Column(name = "isBan", nullable = false)
+    public int getIsBan() { return isBan; }
+    public void setIsBan(int isBan){ this.isBan = isBan; }
+
     @Transient
     @JsonIgnore
-    @OneToMany(mappedBy = "buyer",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "buyer",cascade={CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE},fetch=FetchType.LAZY)
     public List<Order> getOrderList() { return orderList; }
     public void setOrderList(List<Order> orderList1) { this.orderList = orderList1; }
 

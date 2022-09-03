@@ -22,4 +22,6 @@ public interface UserDao {
     User checkBan(String username);
 
     User save(User user);
+
+    List<User> findAllUser();
 }

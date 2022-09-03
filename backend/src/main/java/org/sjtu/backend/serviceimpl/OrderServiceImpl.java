@@ -12,22 +12,24 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 
 @Service
 public class OrderServiceImpl implements OrderService {
-    @Autowired
+    @Resource
     private OrderDao orderDao;
 
-    @Autowired
+    @Resource
     private CartDao cartDao;
 
-    @Autowired
+    @Resource
     private UserDao userDao;
 
-    @Autowired
+    @Resource
     private BookDao bookDao;
 
-    @Autowired
+    @Resource
     CartService cartService;
 
     @Autowired
@@ -39,10 +41,12 @@ public class OrderServiceImpl implements OrderService {
     public Order generateOrder(String username, String recipient, String phone, String address) {
         // 生成订单
         // 书籍库存要相应减少
+        // 如果书籍的数量不够，要对于用户有相应的提示，正常生成订单
         // 清空购物车
         User user = userDao.findByName(username);
         Cart cart = cartDao.findByUser(user);
         Order newOrder = new Order();
+        int flag = 0;
         newOrder.setBuyer(user);
         if(recipient == null) {
             newOrder.setRecipient(username);
@@ -55,7 +59,7 @@ public class OrderServiceImpl implements OrderService {
         else
             newOrder.setPhone(phone);
         if (address == null) {
-            newOrder.setAddress(user.getAddress());
+            newOrder.setAddress(null);
         }
         else
             newOrder.setAddress(address);
@@ -78,12 +82,19 @@ public class OrderServiceImpl implements OrderService {
             }
             else {
                 toBuy.setInventory(0);
+                flag = 1;
                 toBuy.setSales(toBuy.getInventory() + toBuy.getSales());
             }
             orderItem.setOrderId(order);
+//            List<OrderItem> orderItems = order.getOrderItemList();
+//            OrderItem orderItemSaved = orderDao.save(orderItem);
+//            orderItems.add(orderItemSaved);
+//            order.setOrderItemList(orderItems);
             orderDao.save(orderItem);
         }
         cartService.clearCart(username);
+        if(flag == 1)
+            order.setId(0);
         return order;
     }
 
@@ -102,6 +113,8 @@ public class OrderServiceImpl implements OrderService {
             List<OrderItem> orderItems = orderDao.findByOrderId(order);
             selected.add(orderItems);
         }
+//        Collections.sort(selected, Collections.reverseOrder());
+//        Collections.reverse(selected);
         return selected;
     }
 
@@ -151,9 +164,13 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderItem> getLatestOrder(String username) {
         User user = userDao.findByName(username);
         List<Order> orders = orderDao.findByBuyer(user);
-        Order order = orders.get(orders.size() - 1);
-        List<OrderItem> orderItems = orderDao.findByOrderId(order);
-        return orderItems;
+        if(orders.size() > 0) {
+            Order order = orders.get(orders.size() - 1);
+            List<OrderItem> orderItems = orderDao.findByOrderId(order);
+            return orderItems;
+        } else {
+            return null;
+        }
     }
 
     @Override

@@ -13,29 +13,36 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 @Service
 public class UserServiceImpl implements UserService{
-    @Autowired
+    @Resource
     private UserDao userDao;
 
-    @Autowired
+    @Resource
     private CartDao cartDao;
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
-    public User register(String username, String password, String email, String phone, String address){
+    public User register(String username, String password, String email, String phone
+//                         String address
+    ){
         User tmp = findByUsername(username);
-        if(tmp != null)
-            return null;
+        if(tmp != null) {
+            tmp.setName(null);
+            return tmp;
+        }
         User user = new User();
         user.setName(username);
         user.setPassward(password);
-        user.setAddress("null");
+//        user.setAddress("null");
         user.setEmail(email);
         user.setPhone(phone);
-        user.setAddress(address);
+//        user.setAddress(address);
         user.setIsAdministrators(0);
+        user.setIsBan(0);
 
         try {
             User newUser = userDao.save(user);
@@ -62,11 +69,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User updateInfo(String username, String address, String phone, String email){
+    public User updateInfo(String username, String phone, String email){
         User toUpdate = userDao.findByName(username);
         if(toUpdate == null)
             return null;
-        toUpdate.setAddress(address);
+//        toUpdate.setAddress(address);
         toUpdate.setPhone(phone);
         toUpdate.setEmail(email);
         return userDao.save(toUpdate);
@@ -83,8 +90,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User checkUser(String username, String password){
-        if(userDao.checkBan(username) != null)
-            return null;
+//        if(userDao.checkBan(username) != null)
+//            return null;
         return userDao.checkUser(username, password);
     }
 
@@ -119,4 +126,9 @@ public class UserServiceImpl implements UserService{
         return baned;
     }
 
+    @Override
+    public List<User> getAllUser() {
+        List<User> users = userDao.findAllUser();
+        return users;
+    }
 }
