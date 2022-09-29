@@ -1,5 +1,6 @@
 import config from '../utils/config';
 import {postRequest, postRequest_v2} from "../utils/ajax";
+import {message} from "antd";
 
 
 
@@ -39,5 +40,11 @@ export const getCustomerBuy=(username, dateNum, callback) => {
     const data = {username:username, dateNum:dateNum};
     console.log("parameter in customer: ", data);
     const url = `${config.apiUrl}/order/showCustomerBuy`;
+    postRequest_v2(url, data, callback);
+}
+
+export const getOrderResult=(user, callback) => {
+    const data = {username: user.name, recipient: user.name, phone: user.phone, address: user.address};
+    const url = `${config.apiUrl}/order/queryOrder`;
     postRequest_v2(url, data, callback);
 }

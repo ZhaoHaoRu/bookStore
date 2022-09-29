@@ -5,6 +5,7 @@ import "../css/login.css"
 import {MessageOutlined, LikeOutlined, StarOutlined, DollarOutlined} from '@ant-design/icons';
 import {getCartItem, purchase, addBook, deleteBook} from "../services/cartService";
 import {history} from "../utils/history";
+import {getOrderResult} from "../services/orderService";
 import payView from "../view/PayView";
 import OneOrderList from "./OrderItem";
 
@@ -17,9 +18,12 @@ class CartList extends React.Component{
         this.state = {books:[],
             cartItem:[],
             isCart:1,
+            timeCount:0,
         };
         this.onClickPurchase = this.onClickPurchase.bind(this);
         this.onClickAdd = this.onClickAdd.bind(this);
+        this.queryOrder = this.queryOrder.bind(this);
+        this.timer = null;
     }
 
     componentDidMount(){
@@ -33,9 +37,30 @@ class CartList extends React.Component{
 
     onClickPurchase(){
         purchase(this.state.user);
-        this.setState({isCart:0})
+        this.setState({timeCount:0});
+        this.timer = setInterval(()=> this.queryOrder(), 100);
     }
 
+    componentWillUnmount() {
+        this.timer = null; // here...
+    }
+
+    queryOrder(){
+        const callback =  (data) => {
+            console.log("query return data:", data);
+            if(this.state.timeCount > 60000) {
+                message.error("订单生成失败！");
+                clearInterval(this.timer);
+            }
+            if(data === true) {
+                console.log("clear Interval!");
+                this.setState({isCart:0});
+                clearInterval(this.timer);
+            }
+            this.setState({timeCount:this.state.timeCount + 100});
+        };
+        getOrderResult(this.state.user, callback);
+    }
 
     onClickAdd=(e)=>{
         console.log("e:", e);
@@ -124,11 +149,11 @@ class CartList extends React.Component{
                     <Divider plain style={{color:"rgb(189, 54, 47)"}}><a style={{fontSize:"30px", color:"rgb(189, 54, 47)", fontWeight:"bold"}}>我的订单</a></Divider>
                     <OneOrderList order={this.state.cartItem}/>
                     <Col>
-                        <p style={{fontSize:"25px", color:"black", textAlign:"center"}} >请扫描下面的付款码完成支付！</p>
+                        <p style={{fontSize:"25px", color:"black", textAlign:"center"}} >使用微信支付成功！</p>
                         <Image src={[require("../img/微信支付.png")]} style={{marginLeft:"55%", width:"50%"}} />
                         <p></p>
                         <Button onClick={pay} type="primary" icon={<DollarOutlined />} size={"large"} style={{backgroundColor:'rgb(189, 54, 47)', border:"none", marginLeft:"43%", marginBottom:"5%"}}>
-                            确认购买
+                            确认
                         </Button>
                     </Col>
                 </>
