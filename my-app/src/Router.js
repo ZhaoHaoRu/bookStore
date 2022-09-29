@@ -29,7 +29,7 @@ class BasicRoute extends React.Component{
             <Router history={history}>
                 <Switch>
                     <Route exact path="/statistics" component={StatisticsView}/>
-                    <LoginRoute  exact path="/" component={LoginView} />
+                    <Route exact path="/" component={LoginView} />
                     <Route exact path="/register" component={RegisterView}/>
                     <PrivateRoute exact path="/bookDetails" component={DetailView}/>
                     <PrivateRoute exact path="/home" component={BrowseView}/>

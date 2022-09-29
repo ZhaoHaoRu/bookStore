@@ -7,6 +7,7 @@ import {message} from 'antd';
 
 export const login = (data) => {
     const url = `${config.apiUrl}/login`;
+    console.log("PUSH ININ!!!!");
     const callback = (data) => {
         if(data.status >=0) {
             localStorage.setItem('user', JSON.stringify(data.data));
@@ -60,7 +61,7 @@ export const logout = () => {
         if(data.status >= 0) {
             localStorage.removeItem("user");
             history.push("/login");
-            message.success(data.msg);
+            message.success(data.msg, 20);
         }
         else{
             message.error(data.msg);

@@ -6,6 +6,7 @@ import org.sjtu.backend.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -21,7 +22,12 @@ public class OrderDaoImpl implements OrderDao{
     private OrderItemRepository orderItemRepository;
 
     @Override
+    @Transactional
     public Order create(Order order) {
+        /**
+         * exception
+         */
+//        int result = 1 / 0;
         return orderRepository.save(order);
     }
 
@@ -44,7 +50,12 @@ public class OrderDaoImpl implements OrderDao{
     }
 
     @Override
+    @Transactional
     public OrderItem save(OrderItem orderItem) {
+        /**
+         * exception
+         */
+//        int result = 1 / 0;
         return orderItemRepository.save(orderItem);
     }
 

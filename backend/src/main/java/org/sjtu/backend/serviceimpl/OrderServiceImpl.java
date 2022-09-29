@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -38,11 +39,16 @@ public class OrderServiceImpl implements OrderService {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
+    @Transactional
     public Order generateOrder(String username, String recipient, String phone, String address) {
         // 生成订单
         // 书籍库存要相应减少
         // 如果书籍的数量不够，要对于用户有相应的提示，正常生成订单
         // 清空购物车
+        /**
+         * exception
+         */
+//        int result = 1 / 0;
         User user = userDao.findByName(username);
         Cart cart = cartDao.findByUser(user);
         Order newOrder = new Order();
@@ -90,8 +96,16 @@ public class OrderServiceImpl implements OrderService {
 //            OrderItem orderItemSaved = orderDao.save(orderItem);
 //            orderItems.add(orderItemSaved);
 //            order.setOrderItemList(orderItems);
-            orderDao.save(orderItem);
+            try {
+                orderDao.save(orderItem);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        /**
+         * exception
+         */
+//        int result = 1 / 0;
         cartService.clearCart(username);
         if(flag == 1)
             order.setId(0);
