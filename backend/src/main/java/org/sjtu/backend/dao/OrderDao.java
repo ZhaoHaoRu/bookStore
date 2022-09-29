@@ -27,4 +27,6 @@ public interface OrderDao {
     List<Order> findByAddDateAfter(Timestamp begin);
 
     List<Order> findByBuyerAndAddDateAfter(User buyer, Timestamp begin);
+
+    List<Order> findSpecificOrder(User buyer, String recipient, String phone, String address);
 }

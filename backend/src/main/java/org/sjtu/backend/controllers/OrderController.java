@@ -4,6 +4,7 @@ package org.sjtu.backend.controllers;
 import org.sjtu.backend.entity.*;
 import org.sjtu.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,9 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
@@ -34,6 +38,14 @@ public class OrderController {
         return orderService.generateOrder(username, recipient, phone, address);
     }
 
+    @RequestMapping("/order/sendOrder")
+    public void sendOrder(@RequestParam("username") String username, @RequestParam("recipient") String recipient,
+                          @RequestParam("phone") String phone, @RequestParam("address") String address)
+    {
+        String request = username + "," + recipient + "," + phone + "," + address;
+        kafkaTemplate.send("topic1",  "request_order", request);
+        System.out.println(request);
+    }
 
     @RequestMapping("/order/showOrder")
     public List<List<OrderItem>> showOrder(@RequestParam("username") String username) {
@@ -99,5 +111,12 @@ public class OrderController {
     public List<Book> showCustomerBuy(@RequestParam("username") String username, @RequestParam("dateNum") Integer dateNum) {
         List<Book> books = orderService.showCustomerBuy(username, dateNum);
         return books;
+    }
+
+    @RequestMapping("order/queryOrder")
+    public boolean queryOrder(@RequestParam("username") String username, @RequestParam("recipient") String recipient,
+                              @RequestParam("phone") String phone, @RequestParam("address") String address)
+    {
+        return orderService.queryOrder(username, recipient, phone, address);
     }
 }

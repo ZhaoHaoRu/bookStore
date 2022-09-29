@@ -26,4 +26,6 @@ public interface OrderService {
     List<User> showCustomers(int dateNum);
 
     List<Book> showCustomerBuy(String username, int dateNum);
+
+    boolean queryOrder(String username, String recipient, String phone, String address);
 }

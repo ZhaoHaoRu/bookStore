@@ -78,4 +78,9 @@ public class OrderDaoImpl implements OrderDao{
     public List<Order> findByBuyerAndAddDateAfter(User buyer, Timestamp begin) {
         return orderRepository.findByBuyerAndAddDateAfter(buyer, begin);
     }
+
+    @Override
+    public List<Order> findSpecificOrder(User buyer, String recipient, String phone, String address) {
+        return orderRepository.findByBuyerAndRecipientAndPhoneAndAddress(buyer, recipient, phone, address);
+    }
 }

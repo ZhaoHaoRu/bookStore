@@ -23,4 +23,6 @@ public interface OrderRepository extends JpaRepository<Order,Integer>{
 
     List<Order> findByBuyerAndAddDateAfter(User buyer, Timestamp begin);
 
+    List<Order> findByBuyerAndRecipientAndPhoneAndAddress(User buyer, String recipient, String phone, String address);
+
 }

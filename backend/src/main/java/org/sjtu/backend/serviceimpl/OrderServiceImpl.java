@@ -311,5 +311,29 @@ public class OrderServiceImpl implements OrderService {
         return books;
     }
 
+    @Override
+    public boolean queryOrder(String username, String recipient, String phone, String address) {
+        User user = userDao.findByName(username);
+        // check the user
+        if(user == null) {
+            return false;
+        }
+        // 查找信息相符的订单
+        List<Order> orders = orderDao.findSpecificOrder(user, recipient, phone, address);
+        if(orders == null) {
+            return false;
+        }
+        // 确定时间最近的订单是否在1min内
+        Order order = orders.get(orders.size() - 1);
+        Long endTime = System.currentTimeMillis();
+        Long miss = Long.valueOf( 60 * 1000L);  // check within 1 min
+        Long startTime = endTime - miss;
+        Timestamp begin = new Timestamp(startTime);
+        Timestamp thisTime = order.getAddDate();
+        if(begin.before(thisTime)) {
+            return true;
+        }
+        return false;
+    }
 
 }

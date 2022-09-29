@@ -1,0 +1,37 @@
+# kafka
+kafka:
+    topics:
+    -   name: topic1
+        num-partitions: 2
+        replication-factor: 1
+    -   name: topic2
+        num-partitions: 2
+        replication-factor: 1
+
+
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: zh406835
+        tomcat:
+            max-active: 20
+        url: jdbc:mysql://localhost:3306/myBookstore?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+        username: root
+    jpa:
+        database: mysql
+        properties:
+            hibernate:
+                hbm2ddl:
+                    auto: update
+        show-sql: true
+    kafka:
+        bootstrap-servers: localhost:9092
+    servlet:
+        multipart:
+            max-file-size: 100MB
+            max-request-size: 150MB
+    thymeleaf:
+        cache: false
+
+
+

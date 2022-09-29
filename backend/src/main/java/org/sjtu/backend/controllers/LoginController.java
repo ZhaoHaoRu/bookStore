@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@Scope("session")
 public class LoginController {
     @Autowired
     private UserService userService;
