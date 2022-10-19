@@ -33,5 +33,12 @@ spring:
     thymeleaf:
         cache: false
 
+server:
+    port: 8443
+    ssl:
+        key-store: keystore.p12
+        key-store-password: 123456
+        keyAlias: tomcat
+
 
 
