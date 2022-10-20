@@ -42,7 +42,8 @@ export const getCartItem = (username, callback)=>{
 
 export const purchase = (user)=>{
     const data = {username: user.name, recipient: user.name, phone: user.phone, address: user.address};
-    const url = `${config.apiUrl}/order/generateOrder`;
+    // const url = `${config.apiUrl}/order/generateOrder`;
+    const url = `${config.apiUrl}/order/sendOrder`;
     const callback = (data) => {
         console.log("status:", data.status);
         console.log("data status:", data);
