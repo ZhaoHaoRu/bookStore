@@ -6,7 +6,6 @@ import org.sjtu.backend.entity.CartItem;
 
 import java.util.List;
 public interface BookService {
-    List<Book> findByName(String name);
 
     Book findById(int id);
 

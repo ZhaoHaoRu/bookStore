@@ -30,15 +30,15 @@ public class BookServiceImpl implements BookService{
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Override
-    public List<Book> findByName(String name) {
-        List<Book> books = bookDao.findByName(name);
-        for (Book book: books) {
-            if(book.getInventory() == -1)
-                books.remove(book);
-        }
-        return books;
-    }
+//    @Override
+//    public List<Book> findByName(String name) {
+//        List<Book> books = bookDao.findByName(name);
+//        for (Book book: books) {
+//            if(book.getInventory() == -1)
+//                books.remove(book);
+//        }
+//        return books;
+//    }
 
     @Override
     public Book findById(int id) {
@@ -91,6 +91,7 @@ public class BookServiceImpl implements BookService{
         newBook.setSales(toChange.getSales());
         //这个操作相当于将原先的书删除
         toChange.setInventory(-1);
+        bookDao.save(toChange);
         return newBook;
     }
 
