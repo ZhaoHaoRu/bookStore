@@ -66,3 +66,10 @@ export const deleteBook = (data)=> {
     };
     postRequest_v2(url, send_data, callback);
 }
+
+
+export const query = (data, callback) => {
+    const send_data = {condition: data};
+    const url = `http://localhost:8080/book/query`;
+    postRequest_v2(url, send_data, callback);
+}

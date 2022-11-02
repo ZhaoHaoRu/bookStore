@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import '../css/browse.css'
 import {Menu, Layout, Alert} from 'antd';
-import {ShoppingCartOutlined, HomeOutlined,UnorderedListOutlined, BarChartOutlined, UserDeleteOutlined } from '@ant-design/icons';
+import {ShoppingCartOutlined, HomeOutlined,UnorderedListOutlined, BarChartOutlined, UserDeleteOutlined, SearchOutlined } from '@ant-design/icons';
 import {Link} from 'react-router-dom';
 import * as userService from '../services/userService';
 const { Header, Content, Footer } = Layout;
@@ -41,6 +41,11 @@ const MyHeader=()=>{
                         <Link to="/statistics">
                             统计
                         </Link>
+                    </Menu.Item>
+                    <Menu.Item key="statistics" icon={<SearchOutlined />}>
+                        <a href="/search" onClick={userService.logout}>
+                            全局搜索
+                        </a>
                     </Menu.Item>
                     <Menu.Item key="statistics" icon={<UserDeleteOutlined />}>
                         <a href="#" onClick={userService.logout}>

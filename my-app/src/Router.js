@@ -9,6 +9,7 @@ import DetailView from "./view/DetailView";
 import CartView from "./view/CartView";
 import RegisterView from "./view/RegisterView";
 import OrderView from "./view/OrderView";
+import SearchingView from "./view/SearchingView";
 import PayView from "./view/PayView";
 import StatisticsView from "./view/StatisticsView";
 
@@ -35,6 +36,7 @@ class BasicRoute extends React.Component{
                     <PrivateRoute exact path="/home" component={BrowseView}/>
                     <PrivateRoute exact path="/cart" component={CartView}/>
                     <PrivateRoute exact path="/order" component={OrderView}/>
+                    <PrivateRoute exact path="/search" component={SearchingView} />
                     <Redirect from="/*" to="/" />
                 </Switch>
 

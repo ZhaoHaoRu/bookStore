@@ -3,15 +3,16 @@ package org.sjtu.backend.entity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import org.springframework.boot.SpringApplication;
-import org.sjtu.backend.entity.OrderItem;
-import javax.management.Descriptor;
+import org.apache.solr.client.solrj.beans.Field;
+import org.springframework.data.solr.core.mapping.SolrDocument;
+
 import javax.persistence.*;
 import javax.swing.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.io.Serializable;
+
 
 @Entity
 @JsonIgnoreProperties(value={"orderItemList", "cartItemList"})
@@ -22,7 +23,6 @@ public class Book {
     private String name;
     private String type;
     private String author;
-//    private double price;
     private int priceYuan;
     private int priceJiao;
     private String descript;
@@ -49,16 +49,19 @@ public class Book {
     public void setIsbn(int isbn1) { this.isbn = isbn1; }
 
     @Basic
+    @Field(value = "book_name")
     @Column(name = "name", nullable = false, length = 40)
     public String getName() { return name; }
     public void setName(String bookName) { this.name = bookName; }
 
     @Basic
+    @Field(value = "book_type")
     @Column(name = "type", length = 10)
     public String getType(){ return type; }
     public void setType(String type){ this.type = type; }
 
     @Basic
+    @Field(value = "book_author")
     @Column(name = "author", nullable = false, length = 20)
     public String getAuthor(){ return author; }
     public void setAuthor(String auth) { this.author = auth; }
@@ -82,6 +85,7 @@ public class Book {
     }
 
     @Basic
+    @Field(value = "book_description")
     @Column(name = "description")
     public String getDescript(){ return descript; }
     public void setDescript(String desci){ this.descript = desci; }
@@ -146,5 +150,26 @@ public class Book {
         result += priceYuan;
         return result;
     }
+
+    public Book (int new_id, String new_name, String new_type, String new_author, String new_descript, int new_inventory) {
+        this.id = new_id;
+        this.name = new_name;
+        this.type = new_type;
+        this.author = new_author;
+        this.descript = new_descript;
+        this.inventory = new_inventory;
+    }
+
+    public Book (String new_id, String new_name, String new_type, String new_author, String new_descript, int new_inventory) {
+        this.id = Integer.parseInt(new_id);
+        this.name = new_name;
+        this.type = new_type;
+        this.author = new_author;
+        this.descript = new_descript;
+        this.inventory = new_inventory;
+    }
+
+
+    public Book () {}
 
 }

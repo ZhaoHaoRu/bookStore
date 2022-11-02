@@ -8,16 +8,22 @@ import net.sf.json.JSONObject;
 import java.util.List;
 import java.util.Map;
 
+import org.sjtu.backend.service.SolrService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 @RestController
 public class BookController {
     @Autowired
     private BookService bookService;
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Resource
+    private SolrService solrService;
 
 
     @RequestMapping("/book/getBooks")
@@ -86,4 +92,10 @@ public class BookController {
 //    public Book changeInventory(@RequestParam("id") Integer id, @RequestParam("newInventory") Integer newInventory){
 //        return bookService.changeInventory(id, newInventory);
 //    }
+
+    @RequestMapping("/book/query")
+    public List<Book> queryByCondition(@RequestParam("condition") String condition) {
+        return solrService.queryByCondition(condition);
+    }
+
 }
