@@ -91,6 +91,7 @@ public class Book {
     public void setDescript(String desci){ this.descript = desci; }
 
     @Basic
+    @Field(value = "book_inventory")
     @Column(name = "inventory")
     public int getInventory(){ return inventory; }
     public void setInventory(int inventory1){ this.inventory = inventory1; }

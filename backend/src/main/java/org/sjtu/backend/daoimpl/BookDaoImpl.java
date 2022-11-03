@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import org.sjtu.backend.entity.Book;
 import org.sjtu.backend.dao.BookDao;
 import org.sjtu.backend.repository.BookRepository;
+import org.sjtu.backend.service.SolrService;
 import org.sjtu.backend.utils.redisutils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,7 @@ import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class BookDaoImpl implements BookDao{
@@ -20,6 +22,9 @@ public class BookDaoImpl implements BookDao{
 
     @Resource
     private RedisUtil redisUtil;
+
+    @Resource
+    private SolrService solrDao;
 
     @Override
     public List<Book> findByName(String name){
@@ -81,6 +86,16 @@ public class BookDaoImpl implements BookDao{
         // 更新redis缓存
         redisUtil.set("book_" + newId, JSONArray.toJSON(savedBook));
         System.out.println("Update the book: " + newId + " in Redis");
+
+        // 更新solr中的索引文件
+        Map<String, Object> result;
+        if(savedBook.getInventory() > 0) {
+             result = solrDao.insertAndUpdate(savedBook);
+        } else {
+            result = solrDao.deleteBookById(savedBook.getId());
+        }
+        System.out.println("solr update message: ");
+        System.out.println(result.get("message"));
         return savedBook;
     }
 
