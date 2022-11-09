@@ -42,8 +42,8 @@ const MyHeader=()=>{
                             统计
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="statistics" icon={<SearchOutlined />}>
-                        <a href="/search" onClick={userService.logout}>
+                    <Menu.Item key="search" icon={<SearchOutlined />}>
+                        <a href="/search">
                             全局搜索
                         </a>
                     </Menu.Item>
