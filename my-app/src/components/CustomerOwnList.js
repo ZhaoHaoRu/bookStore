@@ -1,5 +1,5 @@
 import React from 'react';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import { Card, Image, Row, Col, List, Divider, Button, Space} from 'antd';
 import {render} from "react-dom";
 const { Meta } = Card;

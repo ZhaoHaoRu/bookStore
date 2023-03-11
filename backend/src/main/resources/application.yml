@@ -49,6 +49,16 @@ spring:
     data:
         solr:
             host: http://localhost:8983/solr/new_core
+        # mongoDB
+        mongodb:
+            uri:mongodb://127.0.0.1:27017/book_mongo
+
+
+    neo4j:
+        authentication:
+            name: neo4j
+            password: zh406835
+        uri: bolt://localhost:7687
 
     main:
         allow-bean-definition-overriding: true
@@ -60,5 +70,8 @@ spring:
 #        key-store-password: 123456
 #        keyAlias: tomcat
 
+
+server:
+    max-http-header-size:1000000
 
 

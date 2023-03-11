@@ -1,5 +1,5 @@
 import React from 'react';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import '../css/login.css';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { BookOutlined, EditOutlined , DatabaseOutlined } from '@ant-design/icons';

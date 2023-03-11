@@ -1,0 +1,89 @@
+# cloud
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+  metrics:
+    enabled:
+      default:
+        execution:
+          timeout:
+            enabled: true
+server:
+  port: 8020
+
+# kafka
+kafka:
+  topics:
+    -   name: topic1
+        num-partitions: 2
+        replication-factor: 1
+    -   name: topic2
+        num-partitions: 2
+        replication-factor: 1
+
+
+spring:
+  application:
+    name: backend
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: zh406835
+    tomcat:
+      max-active: 20
+    url: jdbc:mysql://localhost:3306/myBookstore?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+  jpa:
+    database: mysql
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+    show-sql: true
+  kafka:
+    bootstrap-servers: localhost:9092
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 150MB
+  thymeleaf:
+    cache: false
+
+  redis:
+    database: 0
+    host: localhost
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 10
+        max-wait: -1
+        min-idle: 2
+    password:
+    port: 6379
+    timeout: 6000
+
+  data:
+    solr:
+      host: http://localhost:8983/solr/new_core
+
+  main:
+    allow-bean-definition-overriding: true
+
+#server:
+#    port: 8443
+#    ssl:
+#        key-store: keystore.p12
+#        key-store-password: 123456
+#        keyAlias: tomcat
+
+
+

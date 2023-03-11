@@ -153,4 +153,9 @@ public class BookServiceImpl implements BookService{
         toChange.setInventory(newInventory);
         return bookDao.save(toChange);
     }
+
+    @Override
+    public List<Book> findByTag(String tag) {
+        return bookDao.findByTag(tag);
+    }
 }

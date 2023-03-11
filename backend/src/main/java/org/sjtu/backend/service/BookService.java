@@ -28,4 +28,6 @@ public interface BookService {
     Book changeIsbn(int id, int newIsbn);
 
     Book changeInventory(int id, int newInventory);
+
+    List<Book> findByTag(String tag);
 }

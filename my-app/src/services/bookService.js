@@ -73,3 +73,20 @@ export const query = (data, callback) => {
     const url = `http://localhost:8080/book/query`;
     postRequest_v2(url, send_data, callback);
 }
+
+export const queryAuthor = (data, callback) => {
+    console.log("query url: ", data);
+    const send_data = {book_name: data};
+    const url = `${config.apiUrl}/queryAuthor`;
+    console.log("query url: ", url);
+    postRequest_v2(url, send_data, callback);
+}
+
+export const queryTag = (data, callback) => {
+    console.log("query data: ", data);
+    const send_data = {tag: data};
+    const url = `${config.apiUrl}/book/queryByTag`;
+    console.log("query url: ", url);
+    postRequest_v2(url, send_data, callback);
+}
+

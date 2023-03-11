@@ -29,14 +29,14 @@ class BasicRoute extends React.Component{
         return(
             <Router history={history}>
                 <Switch>
-                    <PrivateRoute exact path="/statistics" component={StatisticsView}/>
+                    <Route exact path="/statistics" component={StatisticsView}/>
                     <Route exact path="/" component={LoginView} />
                     <Route exact path="/register" component={RegisterView}/>
-                    <PrivateRoute exact path="/bookDetails" component={DetailView}/>
-                    <PrivateRoute exact path="/home" component={BrowseView}/>
-                    <PrivateRoute exact path="/cart" component={CartView}/>
-                    <PrivateRoute exact path="/order" component={OrderView}/>
-                    <PrivateRoute exact path="/search" component={SearchingView} />
+                    <Route exact path="/bookDetails" component={DetailView}/>
+                    <Route exact path="/home" component={BrowseView}/>
+                    <Route exact path="/cart" component={CartView}/>
+                    <Route exact path="/order" component={OrderView}/>
+                    <Route exact path="/search" component={SearchingView} />
                     <Redirect from="/*" to="/" />
                 </Switch>
 

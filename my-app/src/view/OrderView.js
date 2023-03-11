@@ -1,5 +1,5 @@
 import React from 'react';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import { Layout, Menu, Breadcrumb, Button} from 'antd';
 import MyHeader from "../components/Header";
 import MyFooter from "../components/Footer";

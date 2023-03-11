@@ -1,6 +1,6 @@
 import React from 'react';
 import $ from 'jquery'
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import {List, Avatar, Space, Image, Button, Divider, Col, message} from 'antd';
 import "../css/login.css"
 import {MessageOutlined, LikeOutlined, StarOutlined, DollarOutlined} from '@ant-design/icons';

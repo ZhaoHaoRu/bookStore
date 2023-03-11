@@ -12,6 +12,8 @@ public interface BookDao {
 
     Book save(Book newBook);
 
+    List<Book> findByTag(String tag_name);
+
 //    List<Book> findByISBN(int ISBN);
 
 }

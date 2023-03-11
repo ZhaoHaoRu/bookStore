@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 
 import React from 'react';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import '../css/detail.css';
 import '../css/browse.css';
 import '../css/global.css';

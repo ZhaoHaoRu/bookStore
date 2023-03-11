@@ -53,7 +53,7 @@ public class BookController {
                         @RequestParam("type") String type, @RequestParam("author") String author,
                         @RequestParam("priceYuan") int priceYuan, @RequestParam("priceJiao") int priceJiao,
                         @RequestParam("description") String description,
-                        @RequestParam("inventory") Integer inventory, @RequestParam("inventory") String image)
+                        @RequestParam("inventory") Integer inventory, @RequestParam("image") String image)
     {
         return bookService.addBook(ISBN, name, type, author, priceYuan, priceJiao, description, inventory, image);
     }
@@ -96,6 +96,11 @@ public class BookController {
     @RequestMapping("/book/query")
     public List<Book> queryByCondition(@RequestParam("condition") String condition) {
         return solrService.queryByCondition(condition);
+    }
+
+    @RequestMapping("/book/queryByTag")
+    public List<Book> queryByTag(@RequestParam("tag") String tag) {
+        return bookService.findByTag(tag);
     }
 
 }

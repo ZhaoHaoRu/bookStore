@@ -29,9 +29,11 @@ public class Book {
     //inventory = -1：deleted
     private int inventory;
     private String image;
+    // private BookImg bookImg;
     private int sales;
     private List<OrderItem> orderItemList;
     private List<CartItem> cartItemList;
+    private Long tag;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -96,8 +98,15 @@ public class Book {
     public int getInventory(){ return inventory; }
     public void setInventory(int inventory1){ this.inventory = inventory1; }
 
+
     @Basic
-    @Column(name = "image")
+    @Field(value = "tag")
+    @Column(name = "tag")
+    public Long getTag(){ return tag; }
+    public void setTag(Long tag_){ this.tag = tag_; }
+
+
+    @Transient
     public String getImage(){ return image; }
     public void setImage(String img){ this.image = img; }
 

@@ -1,5 +1,5 @@
 import { Layout, Menu, Breadcrumb, Button} from 'antd';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import '../css/browse.css';
 import React from 'react';
 import '../css/global.css';
